@@ -1,7 +1,8 @@
 import { Controller, Get } from '@nestjs/common';
 import { UserService } from './user.service';
 
-@Controller('user')
+
+@Controller('usuario')
 export class UserController {
 
     constructor(private readonly userService: UserService){}
@@ -10,7 +11,7 @@ export class UserController {
     getTodos() {
       return this.userService.listarTodos();
     }
-    
+
     @Get()
     getUsuarioPorNombre() {
       return this.userService.encontrarUno('Persona 2');

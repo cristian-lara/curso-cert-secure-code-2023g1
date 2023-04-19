@@ -11,6 +11,7 @@ export class AuthController {
         @Param('usuario') usuario: string,
         @Param('password') password: string
     ){
+        
         return this.authService.login(usuario,password)
     }
 }

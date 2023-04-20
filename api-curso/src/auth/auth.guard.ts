@@ -17,7 +17,8 @@ export class AuthGuard implements CanActivate {
       return false;
     }
     try{
-      this.jwtService.verify(token, {secret: configSistema.jwt.secret})
+      const opcionesVerificacionJWT = {secret: configSistema.jwt.secret}
+      this.jwtService.verify(token, opcionesVerificacionJWT)
       return true;
     }catch(e){
       console.log(e)
@@ -28,6 +29,9 @@ export class AuthGuard implements CanActivate {
 
   recuperarTokenDeCabecera(request: Request){
     const cabeceras: any = request.headers
+    // separo la cabecera en un arreglo de dos elementos
+    // el primer elemento es la palabra BEARER
+    // el segundo elemento es el token(jwt)
     const token = cabeceras.authorization?.split(' ')[1]
     return token;
   }

@@ -6,7 +6,7 @@ export const configSistema={
     },
     dbMongo:{},
     jwt:{
-        expireTime: '60s',
+        expireTime: '180s',
         secret: process.env.SECRET_JWT
     }
 }

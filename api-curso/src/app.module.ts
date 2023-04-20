@@ -13,7 +13,7 @@ import { configSistema } from './config/config';
       global: true,
       secret: configSistema.jwt.secret,
       signOptions: {
-        expiresIn: '3600s'
+        expiresIn: configSistema.jwt.expireTime
       }
     })
   ],

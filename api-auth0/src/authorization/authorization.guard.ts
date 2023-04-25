@@ -1,11 +1,15 @@
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
-import { Observable } from 'rxjs';
 import { promisify } from 'util';
 var { expressjwt: jwt } = require("express-jwt");
 import { expressJwtSecret } from 'jwks-rsa';
+import * as dotenv from 'dotenv' // see https://github.com/motdotla/dotenv#how-do-i-use-dotenv-with-import
+dotenv.config()
 @Injectable()
 export class AuthorizationGuard implements CanActivate {
- async canActivate(
+ 
+ 
+ 
+  async canActivate(
     context: ExecutionContext,
   ):  Promise<boolean>  {
 
@@ -14,22 +18,22 @@ const reponse = context.getArgByIndex(1);
 const validarToken = promisify(
   jwt({
 secret : expressJwtSecret({
-  jwksUri:'https://dev2023g1.us.auth0.com/.well-known/jwks.json',
+  jwksUri: process.env.AUTH0_DOMAIN + '.well-known/jwks.json',
   cache: true,
   rateLimit: true,
   jwksRequestsPerMinute: 5
 }),
-audience: 'nestjs',
-issuer:'https://dev2023g1.us.auth0.com/',
+audience: process.env.AUTH0_AUDIENCE,
+issuer:process.env.AUTH0_DOMAIN,
 algorithms: ['RS256']
   })
 );
-
 
 try{
 await validarToken(request, reponse);
 return true;
 }catch(e){
+  console.log('error', e)
   return false;
 } 
   }

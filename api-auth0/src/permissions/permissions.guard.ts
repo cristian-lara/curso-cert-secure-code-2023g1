@@ -10,7 +10,7 @@ export class PermissionsGuard implements CanActivate {
   ): boolean | Promise<boolean>  {
     const [req] = context.getArgs();
     const payloadAuth = req.auth;
-    const permisosUsuariodeAutho0 = ['leer:autor', 'permisos inventado'];
+    const permisosUsuariodeAutho0 = ['leer:autor', 'crear:autor'];
     // ['leer:autor','crear:autor', 'leer:libro']
     console.log('request', permisosUsuariodeAutho0);
     const permisosDeControlador = this.reflector.get('permissions', context.getHandler()) || [];
@@ -20,7 +20,7 @@ export class PermissionsGuard implements CanActivate {
     )
     console.log('tienen permisos el usuario', tienePermisosElUsuario);
 
-    if(permisosUsuariodeAutho0.length === 0){
+    if(permisosUsuariodeAutho0.length === 0 || !tienePermisosElUsuario){
       throw new UnauthorizedException();
     }
     return true;

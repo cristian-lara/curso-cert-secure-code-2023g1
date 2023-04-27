@@ -10,21 +10,22 @@ export class AppComponent implements OnInit {
   title = 'auth0-cliente';
 
   estaLogeado = false;
+  usuarioLogeado: any;
 
   constructor(private readonly auth0Service: AuthService){}
 
   ngOnInit(): void {
 this.verificarUsuarioLogeado();
+this.recuperarUsuario()
   }
 
 
 login(){
-  alert('el usuario va hacer login')
   this.auth0Service.loginWithRedirect()
 }
 
 logout(){
-  alert('el usuario va salir del sistema')
+  this.auth0Service.logout()
 }
 
 verificarUsuarioLogeado(){
@@ -33,6 +34,15 @@ verificarUsuarioLogeado(){
     console.log('res', res);
     this.estaLogeado = res
   })
+}
+
+ recuperarUsuario(){
+  const usuario =  this.auth0Service.user$
+  .subscribe(usuario => {
+    console.log('usuario', usuario)
+    this.usuarioLogeado = usuario
+  })
+
 }
 
 }

@@ -7,4 +7,15 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'auth0-cliente';
+
+
+
+login(){
+  alert('el usuario va hacer login')
+}
+
+logout(){
+  alert('el usuario va salir del sistema')
+}
+
 }

@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { RutaInicioComponent } from './ruta-inicio/ruta-inicio.component';
 import { RutaUsuarioComponent } from './ruta-usuario/ruta-usuario.component';
 import { RutaDefaultComponent } from './ruta-default/ruta-default.component';
+import { AuthGuard } from '@auth0/auth0-angular';
 
 const routes: Routes = [
   {
@@ -11,7 +12,8 @@ const routes: Routes = [
   },
   {
     path: 'usuario',
-    component: RutaUsuarioComponent
+    component: RutaUsuarioComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: '',
